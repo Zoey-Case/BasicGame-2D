@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "Timers/Clock.h"
 
+using namespace Timers;
+
 
 class GameController
 {
@@ -14,7 +16,7 @@ public:
 	bool CheckShouldClose() const;
 
 private:
-	Timers::Clock* clock = nullptr;
+	Clock* clock = nullptr;
 	float deltaTime;
 	int frameRate;
 	int windowWidth;

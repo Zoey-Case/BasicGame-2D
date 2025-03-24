@@ -1,6 +1,5 @@
 ﻿#include "Timers/BaseTimer.h"
 
-
 namespace Timers
 {
 	BaseTimer::BaseTimer(const float& startTimeInSeconds)
@@ -17,7 +16,7 @@ namespace Timers
 		
 		this->seconds = static_cast<int>(time);
 	}
-	
+
 	BaseTimer::~BaseTimer() = default;
 
 	void BaseTimer::Update(const float& deltaTime)

@@ -1,4 +1,4 @@
-﻿#include <Timers/Clock.h>
+﻿#include "Timers/Clock.h"
 
 #include "raylib.h"
 
@@ -16,7 +16,7 @@ namespace Timers
 		this->fontColor = fontColor;
 		
 	}
-	
+
 	Clock::~Clock() = default;
 
 	void Clock::Update(const float& deltaTime)
@@ -36,7 +36,7 @@ namespace Timers
 			UpdateTimeText();
 		}
 	}
-	
+
 	void Clock::Draw() const
 	{
 		DrawTextEx(font, timeText.c_str(), position, fontSize, 0.0f, WHITE);

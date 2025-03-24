@@ -13,7 +13,7 @@ GameController::GameController(const int& windowWidth, const int& windowHeight, 
 	this->frameRate = frameRate;
 
 	this->clock =
-		new Timers::Clock(
+		new Clock(
 			Vector2{static_cast<float>(windowWidth) / 2.0f, 10.0f}
 			);
 	
