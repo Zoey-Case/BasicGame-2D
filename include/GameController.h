@@ -1,7 +1,9 @@
 ﻿#pragma once
+#include "Characters/Player.h"
 #include "Timers/Clock.h"
 
 using namespace Timers;
+using namespace Characters;
 
 
 class GameController
@@ -17,6 +19,8 @@ public:
 
 private:
 	Clock* clock = nullptr;
+	Player* player = nullptr;
+	
 	float deltaTime;
 	int frameRate;
 	int windowWidth;

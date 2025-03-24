@@ -47,7 +47,7 @@ namespace Strings
 	{
 		const inline std::string LASER = Folder::TEXTURES + "laser.png";
 		const inline std::string METEOR = Folder::TEXTURES + "meteor.png";
-		const inline std::string SPACESHIP = Folder::TEXTURES + "Spaceship.png";
+		const inline char* SPACESHIP = "Assets/Textures/spaceship.png";
 		const inline std::string STAR = Folder::TEXTURES + "star.png";
 		const inline std::string WABBIT = Folder::TEXTURES + "wabbit.png";
 	}

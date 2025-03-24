@@ -12,10 +12,11 @@ GameController::GameController(const int& windowWidth, const int& windowHeight, 
 	this->windowHeight = windowHeight;
 	this->frameRate = frameRate;
 
-	this->clock =
-		new Clock(
-			Vector2{static_cast<float>(windowWidth) / 2.0f, 10.0f}
-			);
+	clock = new Clock(Vector2{static_cast<float>(windowWidth) / 2.0f, 10.0f});
+
+	player = new Player(
+		Strings::Texture::SPACESHIP,
+		Vector2{static_cast<float>(windowWidth) / 2.0f, static_cast<float>(windowHeight) - 25.0f});
 	
 	SetConfigFlags(FLAG_WINDOW_HIGHDPI);
 	SetTargetFPS(frameRate);
@@ -25,6 +26,9 @@ GameController::GameController(const int& windowWidth, const int& windowHeight, 
 
 GameController::~GameController()
 {
+	delete this->clock;
+	delete this->player;
+	
 	CloseWindow();
 }
 
@@ -33,8 +37,9 @@ void GameController::Draw()
 	BeginDrawing();
 	ClearBackground(BLACK);
 	
-	DrawFPS(10.0f, 10.0f);
+	DrawFPS(10, 10);
 	clock->Draw();
+	// player->Draw();
 		
 	EndDrawing();
 }
@@ -44,6 +49,7 @@ void GameController::Update()
 {
 	deltaTime = GetFrameTime();
 	clock->Update(deltaTime);
+	// player->Update(deltaTime);
 }
 
 bool GameController::CheckShouldClose() const
