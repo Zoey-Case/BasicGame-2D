@@ -6,64 +6,64 @@ namespace Strings
 {
 	namespace Folder
 	{
-		const inline std::string ANIMATIONS = "Assets/Animations/";
-		const inline std::string ASSETS = "Assets/";
-		const inline std::string AUDIO = "Assets/Audio/";
-		const inline std::string EXPLOSION = "Assets/Animations/Explosion/";
-		const inline std::string FONTS = "Assets/Fonts/";
-		const inline std::string TEXTURES = "Assets/Textures/";
+		const inline char* assets = "Assets/";
 	}
 
 	namespace GameObject
 	{
-		const inline char* PlayerName = "Player";
-		const inline char* ObstacleName = "OBSTACLE";
+		const inline char* playerName = "Player";
+		const inline char* obstacleName = "Asteroid";
 	}
 
 	namespace Animation
 	{
-		const inline std::vector<std::string> EXPLOSION = {
-			Folder::EXPLOSION + "0.png", Folder::EXPLOSION + "1.png", Folder::EXPLOSION + "2.png",
-			Folder::EXPLOSION + "3.png", Folder::EXPLOSION + "4.png", Folder::EXPLOSION + "5.png",
-			Folder::EXPLOSION + "6.png", Folder::EXPLOSION + "7.png", Folder::EXPLOSION + "8.png",
-			Folder::EXPLOSION + "9.png", Folder::EXPLOSION + "10.png", Folder::EXPLOSION + "11.png",
-			Folder::EXPLOSION + "12.png", Folder::EXPLOSION + "13.png", Folder::EXPLOSION + "14.png",
-			Folder::EXPLOSION + "15.png", Folder::EXPLOSION + "16.png", Folder::EXPLOSION + "17.png",
-			Folder::EXPLOSION + "18.png", Folder::EXPLOSION + "19.png", Folder::EXPLOSION + "20.png",
-			Folder::EXPLOSION + "21.png", Folder::EXPLOSION + "22.png", Folder::EXPLOSION + "23.png",
-			Folder::EXPLOSION + "24.png", Folder::EXPLOSION + "25.png", Folder::EXPLOSION + "26.png",
-			Folder::EXPLOSION + "27.png"
+		const inline char* explosion[] = {
+			"Assets/Animations/Explosion/0.png", "Assets/Animations/Explosion/1.png",
+			"Assets/Animations/Explosion/2.png", "Assets/Animations/Explosion/3.png",
+			"Assets/Animations/Explosion/4.png", "Assets/Animations/Explosion/5.png",
+			"Assets/Animations/Explosion/6.png", "Assets/Animations/Explosion/7.png",
+			"Assets/Animations/Explosion/8.png", "Assets/Animations/Explosion/9.png",
+			"Assets/Animations/Explosion/10.png", "Assets/Animations/Explosion/11.png",
+			"Assets/Animations/Explosion/12.png", "Assets/Animations/Explosion/13.png",
+			"Assets/Animations/Explosion/14.png", "Assets/Animations/Explosion/15.png",
+			"Assets/Animations/Explosion/16.png", "Assets/Animations/Explosion/17.png",
+			"Assets/Animations/Explosion/18.png", "Assets/Animations/Explosion/19.png",
+			"Assets/Animations/Explosion/20.png", "Assets/Animations/Explosion/21.png",
+			"Assets/Animations/Explosion/22.png", "Assets/Animations/Explosion/23.png",
+			"Assets/Animations/Explosion/24.png", "Assets/Animations/Explosion/25.png",
+			"Assets/Animations/Explosion/26.png", "Assets/Animations/Explosion/27.png"
 		};
 	}
 
 	namespace Audio
 	{
-		const inline std::string EXPLOSION = Folder::AUDIO + "explosion.wav";
-		const inline std::string LASER = Folder::AUDIO + "laser.wav";
-		const inline std::string MUSIC = Folder::AUDIO + "music.wav";
+		const inline char* explosion = "Assets/Audio/explosion.wav";
+		const inline char* laser = "Assets/Audio/laser.wav";
+		const inline char* music = "Assets/Audio/music.wav";
 	}
 
 	namespace Texture
 	{
-		const inline std::string LASER = Folder::TEXTURES + "laser.png";
-		const inline std::string METEOR = Folder::TEXTURES + "meteor.png";
-		const inline char* SPACESHIP = "Assets/Textures/spaceship.png";
-		const inline std::string STAR = Folder::TEXTURES + "star.png";
-		const inline std::string WABBIT = Folder::TEXTURES + "wabbit.png";
+		const inline char* laser = "Assets/Textures/laser.png";
+		const inline char* meteor = "Assets/Textures/meteor.png";
+		const inline char* spaceship = "Assets/Textures/spaceship.png";
+		const inline char* star = "Assets/Textures/star.png";
+		const inline char* wabbit = "Assets/Textures/wabbit.png";
 	}
 
 	namespace Font
 	{
-		const inline std::string STORM_FAZE = Folder::FONTS + "StormFaze.otf";
+		const inline char* stormFaze = "Assets/Fonts/StormFaze.otf";
 	}
 
 	namespace Utility
 	{
-		const inline char* Empty = "";
+		const inline char* empty = "";
+		const inline char* newLine = "\n";
 
-		const inline char* GameTitle = "MY GAME";
+		const inline char* gameTitle = "MY GAME";
 		
-		const inline char* WindowHeight = "WINDOW HEIGHT: ";
-		const inline char* WindowWidth = "WINDOW WIDTH: ";
+		const inline char* windowHeight = "WINDOW HEIGHT: ";
+		const inline char* windowWidth = "WINDOW WIDTH: ";
 	}
 }

@@ -1,10 +1,11 @@
 ﻿#include "Timers/Clock.h"
-
 #include "raylib.h"
 
 namespace Timers
 {
-	Clock::Clock(const Vector2& position, const char* font, const float& fontSize, const float& fontSpacing, const Color& fontColor, const float& startTimeInSeconds) : BaseTimer(startTimeInSeconds)
+	Clock::Clock(const Vector2& position, const char* font, const float& fontSize,
+				 const float& fontSpacing, const Color& fontColor, const float& startTimeInSeconds) :
+		BaseTimer(startTimeInSeconds)
 	{
 		UpdateTimeText();
 		
@@ -17,24 +18,10 @@ namespace Timers
 		
 	}
 
-	Clock::~Clock() = default;
-
 	void Clock::Update(const float& deltaTime)
 	{
-		time += deltaTime;
-		
-		if (time >= 1.0f)
-		{
-			time -= 1.0f;
-			seconds++;
-			if (seconds >= 60)
-			{
-				minutes++;
-				seconds = 0;
-			}
-
-			UpdateTimeText();
-		}
+		BaseTimer::Update(deltaTime);
+		UpdateTimeText();
 	}
 
 	void Clock::Draw() const

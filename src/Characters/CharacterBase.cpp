@@ -2,22 +2,41 @@
 
 namespace Characters
 {
-	CharacterBase::CharacterBase(const char* texturePath, const Vector2 position, const float rotation,
-								 const float scale, const Color color, const int layer)
+	CharacterBase::CharacterBase(const char* texturePath, const Vector2& position, const float& moveSpeed,
+								 const float& rotation, const Color& color, const float& scale)
 	{
-		this->texture = LoadTexture(texturePath);
+		this->texturePath = texturePath;
+		this->moveSpeed = moveSpeed;
 		this->position = position;
 		this->rotation = rotation;
-		this->scale = scale;
 		this->color = color;
-		this->layer = layer;
+		this->scale = scale;
 	}
 
 	CharacterBase::~CharacterBase()
 	{
-		UnloadTexture(this->texture);
+		UnloadTexture(texture);
 	}
 
-	void CharacterBase::Update(const float& deltaTime) {}
-	void CharacterBase::Draw() const {}
+	void CharacterBase::Update(const float& deltaTime) { /*FULLY VIRTUAL METHOD*/ }
+	
+	void CharacterBase::Move(const float& deltaTime)
+	{
+		position.x += moveVector.x * deltaTime;
+		position.y += moveVector.y * deltaTime;
+	}
+
+	void CharacterBase::Draw() const
+	{
+		const Vector2 drawPos =
+			{position.x - (static_cast<float>(texture.width) / 2.0f),
+			 position.y - (static_cast<float>(texture.height) / 2.0f)};
+		
+		DrawTextureEx(texture, drawPos, rotation, scale, color);
+	}
+
+	void CharacterBase::Load()
+	{
+		texture = LoadTexture(texturePath);
+	}
 }

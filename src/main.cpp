@@ -3,6 +3,7 @@
 int main ()
 {
 	GameController* gameController = new GameController();
+	gameController->LoadAssets();
 	
 	while (!gameController->CheckShouldClose())
 	{

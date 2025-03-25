@@ -6,10 +6,14 @@ namespace Timers
 	{
 	public:
 		BaseTimer(const float& startTimeInSeconds = 0.0f);
-		virtual ~BaseTimer();
+		virtual ~BaseTimer() = default;
 
 		virtual void Update(const float& deltaTime);
 		virtual void Draw() const;
+		virtual void Reset();
+
+		int GetMinutes() const;
+		int GetSeconds() const;
 
 	protected:
 		float time;

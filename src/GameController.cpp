@@ -1,27 +1,22 @@
 ﻿#include "GameController.h"
 #include "raylib.h"
-#include "Debugging/Debug.h"
-
-using namespace Debugging;
+#include "Debug.h"
 
 
-GameController::GameController(const int& windowWidth, const int& windowHeight,  const int& frameRate)
+GameController::GameController(const float& windowWidth, const float& windowHeight,  const int& frameRate)
 {
 	this->deltaTime = 0.0f;
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;
 	this->frameRate = frameRate;
 
-	clock = new Clock(Vector2{static_cast<float>(windowWidth) / 2.0f, 10.0f});
-
-	player = new Player(
-		Strings::Texture::SPACESHIP,
-		Vector2{static_cast<float>(windowWidth) / 2.0f, static_cast<float>(windowHeight) - 25.0f});
+	this->clock = new Clock(Vector2{windowWidth / 2.0f, 10.0f});
+	this->player = new Player(Vector2{windowWidth / 2.0f, windowHeight - 100.0f});
 	
 	SetConfigFlags(FLAG_WINDOW_HIGHDPI);
 	SetTargetFPS(frameRate);
 	
-	InitWindow(windowWidth, windowHeight, Strings::Utility::GameTitle);
+	InitWindow(static_cast<int>(windowWidth), static_cast<int>(windowHeight), Strings::Utility::gameTitle);
 }
 
 GameController::~GameController()
@@ -39,7 +34,7 @@ void GameController::Draw()
 	
 	DrawFPS(10, 10);
 	clock->Draw();
-	// player->Draw();
+	player->Draw();
 		
 	EndDrawing();
 }
@@ -48,11 +43,17 @@ void GameController::Draw()
 void GameController::Update()
 {
 	deltaTime = GetFrameTime();
+	
 	clock->Update(deltaTime);
-	// player->Update(deltaTime);
+	player->Update(deltaTime);
 }
 
 bool GameController::CheckShouldClose() const
 {
 	return WindowShouldClose();
+}
+
+void GameController::LoadAssets() const
+{
+	player->Load();
 }
