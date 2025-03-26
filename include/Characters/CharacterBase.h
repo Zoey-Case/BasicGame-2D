@@ -12,21 +12,20 @@ namespace Characters
 							   const float& scale);
 		virtual ~CharacterBase();
 
-		virtual void Update(const float& deltaTime);
-		virtual void Move(const float& deltaTime);
+		virtual void Update(const float& deltaTime = GetFrameTime());
+		virtual void Move(const Vector2& moveInput, const float& deltaTime);
 		
 		virtual void Draw() const;
 		virtual void Load();
 
 	protected:
 		const char* texturePath;
-		Texture texture = Texture();
+		Texture texture;
 		
 		Color color;
 		float scale;
 		
 		Vector2 position;
-		Vector2 moveVector = Vector2{0.0f, 0.0f};
 		float moveSpeed;
 		float rotation;
 	};

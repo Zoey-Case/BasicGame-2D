@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <dinput.h>
 
 #include "Timers/BaseTimer.h"
 

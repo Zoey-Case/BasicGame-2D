@@ -6,6 +6,7 @@ namespace Characters
 								 const float& rotation, const Color& color, const float& scale)
 	{
 		this->texturePath = texturePath;
+		this->texture = Texture();
 		this->moveSpeed = moveSpeed;
 		this->position = position;
 		this->rotation = rotation;
@@ -20,10 +21,10 @@ namespace Characters
 
 	void CharacterBase::Update(const float& deltaTime) { /*FULLY VIRTUAL METHOD*/ }
 	
-	void CharacterBase::Move(const float& deltaTime)
+	void CharacterBase::Move(const Vector2& moveInput, const float& deltaTime)
 	{
-		position.x += moveVector.x * deltaTime;
-		position.y += moveVector.y * deltaTime;
+		position.x += moveInput.x * deltaTime;
+		position.y += moveInput.y * deltaTime;
 	}
 
 	void CharacterBase::Draw() const

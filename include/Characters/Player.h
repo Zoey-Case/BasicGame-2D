@@ -1,7 +1,9 @@
 #pragma once
 
+#include <vector>
+
 #include "CharacterBase.h"
-#include "Timers/BaseTimer.h"
+#include "Weapons/Projectile.h"
 
 namespace Characters
 {
@@ -16,15 +18,20 @@ namespace Characters
 
 		~Player() override;
 
-		void Update(const float& deltaTime) override;
+		void Update(const float& deltaTime = GetFrameTime()) override;
 		void Draw() const override;
 		void Load() override;
-		void Move(const float& deltaTime) override;
+		void Move(const Vector2& moveInput, const float& deltaTime) override;
 
 	private:
+		void UpdateProjectiles(const float& deltaTime);
+		void SpawnProjectile();
+		void RemoveProjectile();
+		
 		Vector2 GetMoveInput();
 		void Fire();
+		const char* projectileTexturePath;
 
-		Timers::BaseTimer* weaponTimer;
+		std::vector<Weapons::Projectile*> projectiles;
 	};
 }

@@ -2,7 +2,7 @@
 
 namespace Timers
 {
-	Timer::Timer() : BaseTimer()
+	Timer::Timer() : BaseTimer(0.0f)
 	{
 		timeElapsed = 0.0f;
 	}
