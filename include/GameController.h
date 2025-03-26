@@ -20,7 +20,7 @@ public:
 
 private:
 	Clock* clock = nullptr;
-	Player* player;
+	Player* player = nullptr;
 	
 	float deltaTime;
 	int frameRate;
