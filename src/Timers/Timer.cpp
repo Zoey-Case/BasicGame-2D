@@ -14,7 +14,7 @@ namespace Timers
 
 	Timer::~Timer()
 	{
-		BaseTimer::~Timer();
+		BaseTimer::~BaseTimer();
 	}
 
 	void Timer::Update(const float& deltaTime)
