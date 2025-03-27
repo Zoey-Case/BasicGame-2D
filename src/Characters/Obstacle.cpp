@@ -1,6 +1,5 @@
 #include "Characters/Obstacle.h"
 #include "Strings/StringLibrary.h"
-#include "Obstacle.h"
 
 namespace Characters
 {
@@ -20,12 +19,7 @@ namespace Characters
 
 	void Obstacle::Update(const float &deltaTime)
 	{
-		Move(Vector2{moveSpeed, 0.0f}, deltaTime);
-	}
-	
-	void Obstacle::Draw() const
-	{
-		CharacterBase::Draw();
+		Move(Vector2{0.0f, moveSpeed}, deltaTime);
 	}
 	
 	void Obstacle::Load()

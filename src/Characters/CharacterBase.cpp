@@ -20,24 +20,46 @@ namespace Characters
 	}
 
 	void CharacterBase::Update(const float& deltaTime) { /*FULLY VIRTUAL METHOD*/ }
-	
+
+	void CharacterBase::Draw() const
+	{
+		Rectangle source = Rectangle{
+			0.0f,
+			0.0f,
+			static_cast<float>(texture.width),
+			static_cast<float>(texture.height)};
+		
+		Rectangle destination = Rectangle{
+			static_cast<float>(GetScreenWidth()),
+			static_cast<float>(GetScreenHeight()),
+			source.width,
+			source.height};
+		
+		DrawTexturePro(texture, source, destination, position, rotation, color);
+	}
+
+	void CharacterBase::Load()
+	{
+		texture = LoadTexture(texturePath);
+	}
+
+	Rectangle CharacterBase::GetCollider() const
+	{
+		return Rectangle{
+			position.x - static_cast<float>(texture.width) / 2.0f,
+			position.y - static_cast<float>(texture.height) / 2.0f,
+			static_cast<float>(texture.width),
+			static_cast<float>(texture.height)};
+	}
+
 	void CharacterBase::Move(const Vector2& moveInput, const float& deltaTime)
 	{
 		position.x += moveInput.x * deltaTime;
 		position.y += moveInput.y * deltaTime;
 	}
 
-	void CharacterBase::Draw() const
+	void CharacterBase::Rotate(const float& newRotation, const float& deltaTime)
 	{
-		const Vector2 drawPos =
-			{position.x - (static_cast<float>(texture.width) / 2.0f),
-			 position.y - (static_cast<float>(texture.height) / 2.0f)};
-		
-		DrawTextureEx(texture, drawPos, rotation, scale, color);
-	}
-
-	void CharacterBase::Load()
-	{
-		texture = LoadTexture(texturePath);
+		rotation = newRotation;
 	}
 }

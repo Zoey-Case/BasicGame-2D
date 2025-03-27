@@ -5,6 +5,7 @@ namespace Timers
 	BaseTimer::BaseTimer(const float& startTimeInSeconds)
 	{
 		this->time = startTimeInSeconds;
+		this->totalTimeInSeconds = startTimeInSeconds;
 
 		this->minutes = 0;
 		
@@ -17,14 +18,15 @@ namespace Timers
 		this->seconds = static_cast<int>(time);
 	}
 
-	void BaseTimer::Draw() const {  }
-
 	void BaseTimer::Reset()
 	{
 		time = 0.0f;
+		totalTimeInSeconds = 0.0f;
 		minutes = 0;
 		seconds = 0;
 	}
+
+	float BaseTimer::GetTimeInSeconds() const { return totalTimeInSeconds; }
 
 	int BaseTimer::GetMinutes() const { return minutes; }
 
@@ -33,6 +35,7 @@ namespace Timers
 	void BaseTimer::Update(const float& deltaTime)
 	{
 		time += deltaTime;
+		totalTimeInSeconds += deltaTime;
 		
 		if (time >= 1.0f)
 		{

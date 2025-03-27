@@ -12,6 +12,8 @@ namespace Characters
 					  startingRotation, startingColor, startingScale)
 	{
 		this->projectileTexturePath = Strings::Texture::laser;
+		this->fireRate = 0.5f;
+		this->fireTimer = new Timers::Timer(fireRate);
 	}
 
 	Player::~Player()
@@ -22,15 +24,18 @@ namespace Characters
 
 	void Player::Update(const float& deltaTime)
 	{
-		Move(GetMoveInput(), deltaTime);
-		
-		if (IsKeyPressed(KEY_SPACE)) { Fire(); }
-		if (!projectiles.empty()) { UpdateProjectiles(deltaTime); }
-	}
+		fireTimer->Update(deltaTime);
 
-	void Player::Draw() const
-	{
-		CharacterBase::Draw();
+		MoveAndRotate(deltaTime);
+		
+		if (fireTimer->GetTimeInSeconds() >= fireRate)
+		{
+			TryFire();
+		}
+		
+		if (!projectiles.empty()) { UpdateProjectiles(deltaTime); }
+
+		CharacterBase::Update(deltaTime);
 	}
 
 	void Player::Load()
@@ -41,6 +46,43 @@ namespace Characters
 	void Player::Move(const Vector2& moveInput, const float& deltaTime)
 	{
 		CharacterBase::Move(Vector2{moveInput.x * moveSpeed, moveInput.y * moveSpeed}, deltaTime);
+	}
+
+	void Player::Rotate(const float& newRotation, const float& deltaTime)
+	{
+		CharacterBase::Rotate(newRotation, deltaTime);
+	}
+
+	void Player::MoveAndRotate(const float& deltaTime)
+	{
+		Vector2 moveInput = GetMoveInput();
+		Move(moveInput, deltaTime);
+
+		if (moveInput.x > 0.0f) { Rotate(10.0f, deltaTime); }
+		else if (moveInput.x < 0.0f) { Rotate(-10.0f, deltaTime); }
+		else { Rotate(0.0f, deltaTime); }
+	}
+
+	std::vector<Rectangle> Player::GetProjectileColliders() const
+	{
+		std::vector<Rectangle> rects = {};
+
+		if (!projectiles.empty())
+		{
+			for (const Weapons::Projectile* projectile : projectiles)
+			{
+				rects.push_back(projectile->GetRect());
+			}
+		}
+	
+		return rects;
+	}
+
+	void Player::RemoveProjectile(const int& projectileIndex)
+	{
+		projectiles[projectileIndex]->Delete();
+		delete projectiles[projectileIndex];
+		projectiles.erase(projectiles.begin() + projectileIndex);
 	}
 
 	void Player::UpdateProjectiles(const float& deltaTime)
@@ -62,11 +104,6 @@ namespace Characters
 	{		
 		projectiles.emplace(projectiles.begin(), new Weapons::Projectile(position, this->projectileTexturePath));
 		projectiles.front()->Load();
-	}
-
-	void Player::RemoveProjectile()
-	{
-		Debug::Log("PROJECTILE DELETED\nNUMBER REMAINING: " + std::to_string(projectiles.size()));
 	}
 
 	Vector2 Player::GetMoveInput()
@@ -91,5 +128,14 @@ namespace Characters
 		SpawnProjectile();
 		
 		Debug::Log("INSTANTIATE PROJECTILE #" + std::to_string(projectiles.size()) + "!");
+	}
+
+	void Player::TryFire()
+	{
+		if (IsKeyPressed(KEY_SPACE))
+		{
+			Fire();
+			fireTimer->Reset();
+		}
 	}
 }

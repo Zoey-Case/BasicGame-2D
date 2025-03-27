@@ -13,12 +13,16 @@ namespace Characters
 		virtual ~CharacterBase();
 
 		virtual void Update(const float& deltaTime = GetFrameTime());
-		virtual void Move(const Vector2& moveInput, const float& deltaTime);
 		
-		virtual void Draw() const;
+		void Draw() const;
 		virtual void Load();
 
+		Rectangle GetCollider() const;
+
 	protected:
+		virtual void Move(const Vector2& moveInput, const float& deltaTime);
+		virtual void Rotate(const float& newRotation, const float& deltaTime);
+		
 		const char* texturePath;
 		Texture texture;
 		

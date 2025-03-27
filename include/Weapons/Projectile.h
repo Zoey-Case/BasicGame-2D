@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <functional>
 
 #include "raylib.h"
 #include "Timers/Timer.h"
@@ -17,10 +16,10 @@ namespace Weapons
 		void Load();
 
 		bool IsDeleted() const;
-
-	private:
+		Rectangle GetRect() const;
 		void Delete();
 		
+	private:
 		Vector2 position;
 		float rotation;
 		float speed;
@@ -30,6 +29,5 @@ namespace Weapons
 
 		const char* texturePath;
 		Texture texture;
-		Timers::Timer* timer;
 	};
 }

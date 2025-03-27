@@ -1,4 +1,6 @@
 ﻿#pragma once
+
+#include "ObstacleController.h"
 #include "Characters/Player.h"
 #include "Timers/Clock.h"
 
@@ -12,18 +14,28 @@ public:
 	explicit GameController(const float& windowWidth = 1280, const float& windowHeight = 720, const int& frameRate = 60);
 	~GameController();
 
-	void Draw();
-	void Update();
+	void Update(const float& deltaTime);
+	void FixedUpdate(const float& deltaTime);
+	void DrawGameScreen();
+	void DrawGameOver();
 	
 	bool CheckShouldClose() const;
+	bool IsGameOver() const;
 	void LoadAssets() const;
 
 private:
+	void CheckCollisions();
+	void DrawEndScreen(const char* text, const int& textX, const int& textY);
+	void CleanUpObjects();
+	void ResetObjects();
+	
 	Clock* clock = nullptr;
 	Player* player = nullptr;
+	ObstacleController* obstacleController = nullptr;
 	
-	float deltaTime;
 	int frameRate;
 	float windowWidth;
 	float windowHeight;
+	bool gameOver;
+	bool gameWon;
 };

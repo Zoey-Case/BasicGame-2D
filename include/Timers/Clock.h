@@ -15,7 +15,7 @@ namespace Timers
 		~Clock() override = default;
 		
 		void Update(const float& deltaTime) override;
-		void Draw() const override;
+		void Draw() const;
 
 	private:
 		void UpdateTimeText();

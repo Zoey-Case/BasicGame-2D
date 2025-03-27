@@ -15,27 +15,26 @@ namespace Weapons
 		this->isDeleted = false;
 
 		texture = Texture();
-		timer = new Timers::Timer();
 	}
 
 	void Projectile::Update(const float& deltaTime)
 	{
-		timer->Update(deltaTime);
-		if (this->position.y < -50.0f || timer->GetTimeElapsed() >= 5.0f) { Delete(); }
+		if (this->position.y < -50.0f) { Delete(); }
 		else { position.y -= speed * deltaTime; }
 	}
 
 	void Projectile::Draw() const
 	{
-		DrawTextureEx(texture, position, rotation, scale, color);
+		const Vector2 drawPosition = Vector2{
+			position.x - static_cast<float>(texture.width) / 2.0f,
+			position.y - static_cast<float>(texture.height) / 2.0f};
+		
+		DrawTextureEx(texture, drawPosition, rotation, scale, color);
 	}
 
 	void Projectile::Load()
 	{
 		texture = LoadTexture(texturePath);
-		position = Vector2{
-			position.x - static_cast<float>(texture.width) / 2.0f,
-			position.y - static_cast<float>(texture.height) / 2.0f};
 	}
 
 	bool Projectile::IsDeleted() const
@@ -43,9 +42,17 @@ namespace Weapons
 		return isDeleted;
 	}
 
+	Rectangle Projectile::GetRect() const
+	{
+		return Rectangle{
+			position.x - static_cast<float>(texture.width) / 2.0f,
+			position.y - static_cast<float>(texture.height) / 2.0f,
+			static_cast<float>(texture.width),
+			static_cast<float>(texture.height)};
+	}
+
 	void Projectile::Delete()
 	{
-		delete timer;
 		UnloadTexture(texture);
 		this->isDeleted = true;
 	}
