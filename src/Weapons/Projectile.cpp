@@ -42,11 +42,11 @@ namespace Weapons
 		return isDeleted;
 	}
 
-	Rectangle Projectile::GetRect() const
+	Rectangle Projectile::GetCollider() const
 	{
 		return Rectangle{
-			position.x - static_cast<float>(texture.width) / 2.0f,
-			position.y - static_cast<float>(texture.height) / 2.0f,
+			position.x,
+			position.y,
 			static_cast<float>(texture.width),
 			static_cast<float>(texture.height)};
 	}

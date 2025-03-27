@@ -16,7 +16,7 @@ namespace Weapons
 		void Load();
 
 		bool IsDeleted() const;
-		Rectangle GetRect() const;
+		Rectangle GetCollider() const;
 		void Delete();
 		
 	private:

@@ -17,7 +17,7 @@ GameController::GameController(const float& windowWidth, const float& windowHeig
 	this->obstacleController = new ObstacleController();
 	
 	SetConfigFlags(FLAG_WINDOW_HIGHDPI);
-	// SetTargetFPS(frameRate);
+	SetTargetFPS(frameRate);
 	
 	InitWindow(static_cast<int>(windowWidth), static_cast<int>(windowHeight), Strings::Utility::gameTitle);
 }

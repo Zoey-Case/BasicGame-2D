@@ -12,7 +12,7 @@ namespace Characters
 					  startingRotation, startingColor, startingScale)
 	{
 		this->projectileTexturePath = Strings::Texture::laser;
-		this->fireRate = 0.5f;
+		this->fireRate = 0.25f;
 		this->fireTimer = new Timers::Timer(fireRate);
 	}
 
@@ -57,10 +57,6 @@ namespace Characters
 	{
 		Vector2 moveInput = GetMoveInput();
 		Move(moveInput, deltaTime);
-
-		if (moveInput.x > 0.0f) { Rotate(10.0f, deltaTime); }
-		else if (moveInput.x < 0.0f) { Rotate(-10.0f, deltaTime); }
-		else { Rotate(0.0f, deltaTime); }
 	}
 
 	std::vector<Rectangle> Player::GetProjectileColliders() const
@@ -71,7 +67,7 @@ namespace Characters
 		{
 			for (const Weapons::Projectile* projectile : projectiles)
 			{
-				rects.push_back(projectile->GetRect());
+				rects.push_back(projectile->GetCollider());
 			}
 		}
 	
@@ -101,8 +97,13 @@ namespace Characters
 	}
 
 	void Player::SpawnProjectile()
-	{		
-		projectiles.emplace(projectiles.begin(), new Weapons::Projectile(position, this->projectileTexturePath));
+	{
+		Vector2 spawnPosition = Vector2{
+			position.x + static_cast<float>(texture.width) / 2.0f,
+			position.y + static_cast<float>(texture.height) / 2.0f,
+		};
+
+		projectiles.emplace(projectiles.begin(), new Weapons::Projectile(spawnPosition, this->projectileTexturePath));
 		projectiles.front()->Load();
 	}
 

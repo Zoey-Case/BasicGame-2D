@@ -23,19 +23,7 @@ namespace Characters
 
 	void CharacterBase::Draw() const
 	{
-		Rectangle source = Rectangle{
-			0.0f,
-			0.0f,
-			static_cast<float>(texture.width),
-			static_cast<float>(texture.height)};
-		
-		Rectangle destination = Rectangle{
-			static_cast<float>(GetScreenWidth()),
-			static_cast<float>(GetScreenHeight()),
-			source.width,
-			source.height};
-		
-		DrawTexturePro(texture, source, destination, position, rotation, color);
+		DrawTextureEx(texture, position, rotation, scale, color);
 	}
 
 	void CharacterBase::Load()
@@ -46,8 +34,8 @@ namespace Characters
 	Rectangle CharacterBase::GetCollider() const
 	{
 		return Rectangle{
-			position.x - static_cast<float>(texture.width) / 2.0f,
-			position.y - static_cast<float>(texture.height) / 2.0f,
+			position.x,
+			position.y,
 			static_cast<float>(texture.width),
 			static_cast<float>(texture.height)};
 	}

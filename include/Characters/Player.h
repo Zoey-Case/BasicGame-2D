@@ -12,7 +12,7 @@ namespace Characters
 	public:
 		Player(const Vector2& startingPosition = Vector2{10.0f, 10.0f},
 			   const float& startingSpeed = 250.0f,
-			   const float& startingRotation = 180.0f,
+			   const float& startingRotation = 0.0f,
 			   const Color& startingColor = WHITE,
 			   const float& startingScale = 1.0f);
 
