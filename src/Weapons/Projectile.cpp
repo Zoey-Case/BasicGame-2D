@@ -14,7 +14,7 @@ namespace Weapons
 		this->color = WHITE;
 		this->isDeleted = false;
 
-		this->texture = Texture();
+		texture = Texture();
 		timer = new Timers::Timer();
 	}
 
