@@ -38,4 +38,5 @@ private:
 	float windowHeight;
 	bool gameOver;
 	bool gameWon;
+	int score;
 };

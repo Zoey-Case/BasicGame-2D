@@ -17,6 +17,7 @@ public:
 	void Draw();
 	
 	void SpawnObstacle();
+	int GetNumDestroyed();
 	
 	std::vector<Rectangle> GetColliders() const;
 	void RemoveObstacle(const int& obstacleIndex);
@@ -27,5 +28,6 @@ private:
 	Timers::Timer* timer;
 	std::vector<Obstacle*> obstacles;
 
+	int numDestroyed;
 	float spawnTime;
 };

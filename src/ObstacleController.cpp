@@ -4,6 +4,8 @@ ObstacleController::ObstacleController(const float& spawnTime)
 {
 	this->timer = new Timers::Timer();
 	this->spawnTime = spawnTime;
+
+	numDestroyed = 0;
 }
 
 ObstacleController::~ObstacleController() { Cleanup(); }
@@ -45,6 +47,8 @@ void ObstacleController::SpawnObstacle()
 	obstacles.front()->Load();
 }
 
+int ObstacleController::GetNumDestroyed() { return numDestroyed; }
+
 std::vector<Rectangle> ObstacleController::GetColliders() const
 {
 	std::vector<Rectangle> rects = {};
@@ -65,6 +69,8 @@ void ObstacleController::RemoveObstacle(const int& obstacleIndex)
 	obstacles[obstacleIndex]->Destroy();
 	delete obstacles[obstacleIndex];
 	obstacles.erase(obstacles.begin() + obstacleIndex);
+
+	numDestroyed++;
 }
 
 void ObstacleController::Cleanup()

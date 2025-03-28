@@ -56,6 +56,11 @@ namespace Strings
 		const inline char* stormFaze = "Assets/Fonts/StormFaze.otf";
 	}
 
+	namespace Stats
+	{
+		const inline char* score = "OBSTACLES DESTROYED: ";
+	}
+
 	namespace Utility
 	{
 		const inline char* empty = "";
