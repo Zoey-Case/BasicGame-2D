@@ -17,7 +17,7 @@ namespace Strings
 
 	namespace Animation
 	{
-		const inline char* explosion[] = {
+		const inline std::vector<char*> explosion = {
 			"Assets/Animations/Explosion/0.png", "Assets/Animations/Explosion/1.png",
 			"Assets/Animations/Explosion/2.png", "Assets/Animations/Explosion/3.png",
 			"Assets/Animations/Explosion/4.png", "Assets/Animations/Explosion/5.png",

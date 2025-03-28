@@ -1,10 +1,10 @@
-#include "Characters/Player.h"
+#include "Character/Player.h"
 
 #include "Debug.h"
 #include "Strings/StringLibrary.h"
 #include "Weapons/Projectile.h"
 
-namespace Characters
+namespace Character
 {
 	Player::Player(const Vector2& startingPosition, const float& startingSpeed, const float& startingRotation,
 				   const Color& startingColor, const float& startingScale) :

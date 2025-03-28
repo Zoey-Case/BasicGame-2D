@@ -1,6 +1,6 @@
-#include "Characters/CharacterBase.h"
+#include "Character/CharacterBase.h"
 
-namespace Characters
+namespace Character
 {
 	CharacterBase::CharacterBase(const char* texturePath, const Vector2& position, const float& moveSpeed,
 								 const float& rotation, const Color& color, const float& scale)
@@ -39,6 +39,8 @@ namespace Characters
 			static_cast<float>(texture.width),
 			static_cast<float>(texture.height)};
 	}
+
+	Vector2 CharacterBase::GetPosition() const { return position; }
 
 	void CharacterBase::Move(const Vector2& moveInput, const float& deltaTime)
 	{

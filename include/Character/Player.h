@@ -5,7 +5,7 @@
 #include "CharacterBase.h"
 #include "Weapons/Projectile.h"
 
-namespace Characters
+namespace Character
 {
 	class Player : public CharacterBase
 	{

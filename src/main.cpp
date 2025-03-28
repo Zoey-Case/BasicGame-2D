@@ -1,8 +1,8 @@
-#include "GameController.h"
+#include "Controller/GameController.h"
 
 int main ()
 {
-	GameController* gameController = new GameController();
+	Controller::GameController* gameController = new Controller::GameController();
 	gameController->LoadAssets();
 	float fixedDeltaTime = 0.0f;
 	const float updateDelay = 1.0f/60.0f;

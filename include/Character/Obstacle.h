@@ -2,9 +2,9 @@
 
 #include <utility>
 
-#include "Characters/CharacterBase.h"
+#include "Character/CharacterBase.h"
 
-namespace Characters
+namespace Character
 {
 	class Obstacle : public CharacterBase
 	{

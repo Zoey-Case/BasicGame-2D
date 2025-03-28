@@ -1,7 +1,7 @@
 #pragma once
 #include "raylib.h"
 
-namespace Characters
+namespace Character
 {
 	class CharacterBase
 	{
@@ -18,6 +18,7 @@ namespace Characters
 		virtual void Load();
 
 		Rectangle GetCollider() const;
+		Vector2 GetPosition() const;
 
 	protected:
 		virtual void Move(const Vector2& moveInput, const float& deltaTime);

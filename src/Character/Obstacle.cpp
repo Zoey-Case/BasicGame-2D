@@ -1,7 +1,7 @@
-#include "Characters/Obstacle.h"
+#include "Character/Obstacle.h"
 #include "Strings/StringLibrary.h"
 
-namespace Characters
+namespace Character
 {
 	Obstacle::Obstacle(const Vector2& startingPosition, const float& startingSpeed, const float& startingRotation,
 					   const Color& startingColor, const float& startingScale) :
@@ -33,13 +33,13 @@ namespace Characters
 	}
 }
 
-void Characters::Obstacle::Destroy()
+void Character::Obstacle::Destroy()
 {
 	isDestroyed = true;
 	UnloadTexture(texture);
 }
 
-bool Characters::Obstacle::IsDestroyed()
+bool Character::Obstacle::IsDestroyed()
 {
 	return isDestroyed;
 }
