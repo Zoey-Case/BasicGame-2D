@@ -14,8 +14,9 @@ GameController::GameController(const float& windowWidth, const float& windowHeig
 	this->score = 0;
 
 	this->clock = new Clock(Vector2{windowWidth / 2.0f, 10.0f});
-	this->player = new Player(Vector2{windowWidth / 2.0f, windowHeight - 100.0f});
+	this->player = new Player(Vector2{windowWidth / 2.0f - 75.0f, windowHeight - 100.0f});
 	this->obstacleController = new ObstacleController();
+	this->scoreCard = new ScoreCard(windowWidth - 150, 20);
 	
 	SetConfigFlags(FLAG_WINDOW_HIGHDPI);
 	SetTargetFPS(frameRate);
@@ -41,7 +42,10 @@ void GameController::Update(const float& deltaTime)
 
 void GameController::FixedUpdate(const float& deltaTime)
 {
-	score = obstacleController->GetNumDestroyed();
+	if (int newScore = obstacleController->GetNumDestroyed(); newScore > scoreCard->GetScore())
+	{
+		scoreCard->SetScore(newScore);
+	}
 }
 
 bool GameController::CheckShouldClose() const
@@ -95,9 +99,11 @@ void GameController::DrawGameScreen()
 	
 	DrawFPS(10, 10);
 	
-	clock->Draw();
 	obstacleController->Draw();
 	player->Draw();
+
+	clock->Draw();
+	scoreCard->Draw();
 	
 	EndDrawing();
 }
@@ -121,14 +127,14 @@ void GameController::DrawGameOver()
 
 void GameController::DrawEndScreen(const char* text, const int& textX, const int& textY)
 {
-	std::string scoreText = Strings::Stats::score + std::to_string(score);
+	std::string scoreText = Strings::Stats::obstaclesDestroyed + std::to_string(scoreCard->GetScore());
 
 	BeginDrawing();
 	ClearBackground(BLACK);
 	
 	DrawFPS(10, 10);
-	DrawText(text, textX, textY, 32, WHITE);
-	DrawText(scoreText.c_str(), textX + 40, textY + 40, 24, WHITE);
+	DrawText(text, textX - 50, textY, 32, WHITE);
+	DrawText(scoreText.c_str(), textX - 120, textY + 40, 24, WHITE);
 
 	EndDrawing();
 }
@@ -143,4 +149,7 @@ void GameController::CleanUpObjects()
 	
 	delete this->obstacleController;
 	this->obstacleController = nullptr;
+
+	delete this->scoreCard;
+	this->scoreCard = nullptr;
 }

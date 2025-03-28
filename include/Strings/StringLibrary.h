@@ -58,7 +58,8 @@ namespace Strings
 
 	namespace Stats
 	{
-		const inline char* score = "OBSTACLES DESTROYED: ";
+		const inline char* obstaclesDestroyed = "OBSTACLES DESTROYED: ";
+		const inline char* score = "SCORE: ";
 	}
 
 	namespace Utility

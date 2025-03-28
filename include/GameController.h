@@ -3,10 +3,13 @@
 #include "ObstacleController.h"
 #include "Characters/Player.h"
 #include "Timers/Clock.h"
+#include "Stats/ScoreCard.h"
+#include "Animation/Animation.h"
 
 using namespace Characters;
 using namespace Timers;
-
+using namespace Stats;
+using namespace Animation;
 
 class GameController
 {
@@ -32,6 +35,7 @@ private:
 	Clock* clock = nullptr;
 	Player* player = nullptr;
 	ObstacleController* obstacleController = nullptr;
+	ScoreCard* scoreCard = nullptr;
 	
 	int frameRate;
 	float windowWidth;
