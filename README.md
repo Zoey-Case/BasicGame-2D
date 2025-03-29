@@ -1,4 +1,5 @@
 # BasicGame-2D
+A simple 2D Space Shooter game made with assets and techniques provided by [Clear Code](https://www.youtube.com/@ClearCode) in [this course](https://www.youtube.com/watch?v=UoAsDlUwjy0).
 
 
 ## Raylib License
