@@ -1,10 +1,10 @@
 ﻿#pragma once
 
+#include "BackgroundController.h"
 #include "ObstacleController.h"
 #include "Character/Player.h"
 #include "Timers/Clock.h"
 #include "Stats/ScoreCard.h"
-#include "Animation/Animation.h"
 #include "Audio/MusicPlayer.h"
 
 namespace Controller
@@ -28,12 +28,14 @@ namespace Controller
 		void CheckCollisions();
 		void DrawEndScreen(const char* text, const int& textX, const int& textY);
 		void CleanUpObjects();
+		void TryUpdateScore();
 	
 		Timers::Clock* clock = nullptr;
 		Character::Player* player = nullptr;
 		ObstacleController* obstacleController = nullptr;
 		Stats::ScoreCard* scoreCard = nullptr;
 		Audio::MusicPlayer* musicPlayer = nullptr;
+		BackgroundController* backgroundController = nullptr;
 	
 		int frameRate;
 		float windowWidth;

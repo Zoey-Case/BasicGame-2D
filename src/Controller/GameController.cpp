@@ -19,6 +19,7 @@ namespace Controller
 		this->obstacleController = new ObstacleController();
 		this->scoreCard = new Stats::ScoreCard(static_cast<int>(windowWidth) - 150, 20);
 		this->musicPlayer = new Audio::MusicPlayer(Strings::Audio::music);
+		this->backgroundController = new BackgroundController(Vector2{windowWidth, windowHeight});
 	
 		SetConfigFlags(FLAG_WINDOW_HIGHDPI);
 		SetTargetFPS(frameRate);
@@ -36,6 +37,8 @@ namespace Controller
 	void GameController::Update(const float& deltaTime)
 	{
 		musicPlayer->Update(deltaTime);
+		backgroundController->Update(deltaTime);
+		
 		clock->Update(deltaTime);
 	
 		CheckCollisions();
@@ -68,6 +71,7 @@ namespace Controller
 
 	void GameController::LoadAssets() const
 	{
+		backgroundController->Load();
 		musicPlayer->Load();
 		player->Load();
 	}
@@ -107,7 +111,8 @@ namespace Controller
 		ClearBackground(BLACK);
 	
 		DrawFPS(10, 10);
-	
+
+		backgroundController->Draw();
 		obstacleController->Draw();
 		player->Draw();
 
@@ -142,6 +147,7 @@ namespace Controller
 		ClearBackground(BLACK);
 	
 		DrawFPS(10, 10);
+		backgroundController->Draw();
 		DrawText(text, textX - 50, textY, 32, WHITE);
 		DrawText(scoreText.c_str(), textX - 120, textY + 40, 24, WHITE);
 
@@ -161,5 +167,24 @@ namespace Controller
 
 		delete this->scoreCard;
 		this->scoreCard = nullptr;
+
+		delete this->musicPlayer;
+		this->musicPlayer = nullptr;
+
+		delete this->backgroundController;
+		this->backgroundController = nullptr;
+	}
+
+	void GameController::TryUpdateScore()
+	{
+		const int newScore = obstacleController->GetNumDestroyed();
+
+		if (newScore >= winningScore && !obstacleController->RunningAnimation())
+		{
+			gameOver = true;
+			gameWon = true;
+		}
+
+		if (newScore > scoreCard->GetScore()) { scoreCard->SetScore(newScore); }
 	}
 }
