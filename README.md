@@ -1,5 +1,5 @@
 # BasicGame-2D
-A simple 2D Space Shooter game made with assets and techniques provided by [Clear Code](https://www.youtube.com/@ClearCode) in [this course](https://www.youtube.com/watch?v=UoAsDlUwjy0).
+A simple 2D Space Shooter game made entirely in C++, using the [Raylib](https://www.raylib.com/) library and assets provided by [Clear Code](https://www.youtube.com/@ClearCode).
 
 
 ## Raylib License
