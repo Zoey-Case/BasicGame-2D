@@ -12,12 +12,13 @@ namespace Controller
 		this->frameRate = frameRate;
 		this->gameOver = false;
 		this->gameWon = false;
-		this->score = 0;
+		this->winningScore = 2;
 
 		this->clock = new Timers::Clock(Vector2{windowWidth / 2.0f, 10.0f});
 		this->player = new Character::Player(Vector2{windowWidth / 2.0f - 75.0f, windowHeight - 100.0f});
 		this->obstacleController = new ObstacleController();
 		this->scoreCard = new Stats::ScoreCard(static_cast<int>(windowWidth) - 150, 20);
+		this->musicPlayer = new Audio::MusicPlayer(Strings::Audio::music);
 	
 		SetConfigFlags(FLAG_WINDOW_HIGHDPI);
 		SetTargetFPS(frameRate);
@@ -34,6 +35,7 @@ namespace Controller
 
 	void GameController::Update(const float& deltaTime)
 	{
+		musicPlayer->Update(deltaTime);
 		clock->Update(deltaTime);
 	
 		CheckCollisions();
@@ -43,16 +45,15 @@ namespace Controller
 
 	void GameController::FixedUpdate(const float& deltaTime)
 	{
-		if (const int newScore = obstacleController->GetNumDestroyed(); newScore > scoreCard->GetScore())
+		const int newScore = obstacleController->GetNumDestroyed();
+
+		if (newScore >= winningScore && !obstacleController->RunningAnimation())
 		{
-			scoreCard->SetScore(newScore);
-		
-			if (newScore == 2)
-			{
-				gameOver = true;
-				gameWon = true;
-			}
+			gameOver = true;
+			gameWon = true;
 		}
+
+		if (newScore > scoreCard->GetScore()) { scoreCard->SetScore(newScore); }
 	}
 
 	bool GameController::CheckShouldClose() const
@@ -67,6 +68,7 @@ namespace Controller
 
 	void GameController::LoadAssets() const
 	{
+		musicPlayer->Load();
 		player->Load();
 	}
 
@@ -125,7 +127,7 @@ namespace Controller
 				static_cast<int>(windowHeight / 2));
 			return;
 		}
-		
+
 		DrawEndScreen(
 				"GAME OVER",
 				static_cast<int>(windowWidth / 2.0f - 50.0f),

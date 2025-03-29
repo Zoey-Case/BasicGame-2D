@@ -17,7 +17,7 @@ namespace Strings
 
 	namespace Animation
 	{
-		const inline std::vector<char*> explosion = {
+		const inline std::vector<std::string> explosion = {
 			"Assets/Animations/Explosion/0.png", "Assets/Animations/Explosion/1.png",
 			"Assets/Animations/Explosion/2.png", "Assets/Animations/Explosion/3.png",
 			"Assets/Animations/Explosion/4.png", "Assets/Animations/Explosion/5.png",
@@ -37,9 +37,9 @@ namespace Strings
 
 	namespace Audio
 	{
-		const inline char* explosion = "Assets/Audio/explosion.wav";
-		const inline char* laser = "Assets/Audio/laser.wav";
-		const inline char* music = "Assets/Audio/music.wav";
+		const inline std::string explosion = "Assets/Audio/explosion.wav";
+		const inline std::string laser = "Assets/Audio/laser.wav";
+		const inline std::string music = "Assets/Audio/music.wav";
 	}
 
 	namespace Texture

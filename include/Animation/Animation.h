@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include "Strings/StringLibrary.h"
 #include <vector>
 #include "raylib.h"
 #include "Timers/Timer.h"
@@ -10,7 +10,7 @@ namespace Animation
 	class Animation
 	{
 	public:
-		Animation(const float& refreshRate, const float& xPos, const float& yPos, const std::vector<char*> texturePaths, const Color& color = WHITE);
+		Animation(const float& refreshRate, const float& xPos, const float& yPos, const std::vector<std::string> texturePaths, const Color& color = WHITE);
 		~Animation();
 
 		void Update(const float& deltaTime);
@@ -30,6 +30,7 @@ namespace Animation
 		bool isFinished;
 		
 		Texture texture;
-		std::vector<char*> texturePaths;
+		std::vector<std::string> texturePaths;
+		Sound clip;
 	};
 }

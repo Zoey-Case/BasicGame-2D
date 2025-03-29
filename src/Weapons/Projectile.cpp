@@ -14,8 +14,13 @@ namespace Weapons
 		this->color = WHITE;
 		this->isDeleted = false;
 
+		this->clip = LoadSound(Strings::Audio::laser.c_str());
+		PlaySound(clip);
+
 		texture = Texture();
 	}
+
+	Projectile::~Projectile() { UnloadSound(clip); }
 
 	void Projectile::Update(const float& deltaTime)
 	{

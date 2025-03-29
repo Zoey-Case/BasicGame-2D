@@ -8,6 +8,7 @@ namespace Controller
 	{
 		this->timer = new Timers::Timer();
 		this->spawnTime = spawnTime;
+		this->animationRunning = false;
 
 		numSpawned = 0;
 		numDestroyed = 0;
@@ -80,9 +81,11 @@ namespace Controller
 		numSpawned++;
 	}
 
-	int ObstacleController::GetNumSpawned() { return numSpawned; }
+	int ObstacleController::GetNumSpawned() const { return numSpawned; }
 
-	int ObstacleController::GetNumDestroyed() { return numDestroyed; }
+	int ObstacleController::GetNumDestroyed() const { return numDestroyed; }
+
+	bool ObstacleController::RunningAnimation() const { return animationRunning; }
 
 	std::vector<Rectangle> ObstacleController::GetColliders() const
 	{
@@ -106,6 +109,7 @@ namespace Controller
 		obstacles[index]->Destroy();
 		delete obstacles[index];
 		obstacles.erase(obstacles.begin() + index);
+		numDestroyed++;
 
 		SpawnExplosion(obstaclePosition.x, obstaclePosition.y);
 	}
@@ -113,13 +117,15 @@ namespace Controller
 	void ObstacleController::SpawnExplosion(const float& xPos, const float& yPos)
 	{
 		explosions.emplace(explosions.begin(), new Animation::Animation(1.0f/24.0f, xPos, yPos, Strings::Animation::explosion));
+		animationRunning = true;
 	}
 
 	void ObstacleController::DespawnExplosion(const int& index)
 	{
 		delete explosions[index];
 		explosions.erase(explosions.begin() + index);
-		numDestroyed++;
+
+		if (explosions.empty()) { animationRunning = false; }
 	}
 
 	void ObstacleController::Cleanup()

@@ -18,8 +18,9 @@ namespace Controller
 		void Draw();
 	
 		void SpawnObstacle();
-		int GetNumSpawned();
-		int GetNumDestroyed();
+		int GetNumSpawned() const;
+		int GetNumDestroyed() const;
+		bool RunningAnimation() const;
 	
 		std::vector<Rectangle> GetColliders() const;
 		void RemoveObstacle(const int& index);
@@ -37,5 +38,6 @@ namespace Controller
 		int numSpawned;
 		int numDestroyed;
 		float spawnTime;
+		bool animationRunning;
 	};
 }
