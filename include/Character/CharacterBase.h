@@ -21,8 +21,7 @@ namespace Character
 		Vector2 GetPosition() const;
 
 	protected:
-		virtual void Move(const Vector2& moveInput, const float& deltaTime);
-		virtual void Rotate(const float& newRotation, const float& deltaTime);
+		virtual void Move(Vector2 input, const float& deltaTime);
 		
 		const char* texturePath;
 		Texture texture;
@@ -31,6 +30,8 @@ namespace Character
 		float scale;
 		
 		Vector2 position;
+		Vector2 xBounds;
+		Rectangle sourceRect;
 		float moveSpeed;
 		float rotation;
 	};

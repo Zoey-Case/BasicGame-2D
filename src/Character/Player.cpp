@@ -2,6 +2,7 @@
 
 #include "Debug.h"
 #include "Strings/StringLibrary.h"
+#include "Timers/Timer.h"
 #include "Weapons/Projectile.h"
 
 namespace Character
@@ -14,6 +15,7 @@ namespace Character
 		this->projectileTexturePath = Strings::Texture::laser;
 		this->fireRate = 0.25f;
 		this->fireTimer = new Timers::Timer(fireRate);
+		this->yBounds = Vector2{0.0f, static_cast<float>(GetScreenHeight())};
 	}
 
 	Player::~Player()
@@ -26,7 +28,7 @@ namespace Character
 	{
 		fireTimer->Update(deltaTime);
 
-		MoveAndRotate(deltaTime);
+		Move(GetMoveInput(), deltaTime);
 		
 		if (fireTimer->GetTimeInSeconds() >= fireRate)
 		{
@@ -41,37 +43,44 @@ namespace Character
 	void Player::Load()
 	{
 		CharacterBase::Load();
+
+		yBounds.x += sourceRect.height / 2.0f;
+		yBounds.y -= sourceRect.height / 2.0f;
 	}
 
-	void Player::Move(const Vector2& moveInput, const float& deltaTime)
+	void Player::Move(Vector2 input, const float& deltaTime)
 	{
-		CharacterBase::Move(Vector2{moveInput.x * moveSpeed, moveInput.y * moveSpeed}, deltaTime);
-	}
-
-	void Player::Rotate(const float& newRotation, const float& deltaTime)
-	{
-		CharacterBase::Rotate(newRotation, deltaTime);
-	}
-
-	void Player::MoveAndRotate(const float& deltaTime)
-	{
-		Vector2 moveInput = GetMoveInput();
-		Move(moveInput, deltaTime);
+		if (input.x > 0.0f) { rotation = 5.0f; }
+		else if (input.x < 0.0f) { rotation = -5.0f; }
+		else { rotation = 0.0f; }
+		
+		if (position.y + input.y >= yBounds.y)
+		{
+			input.y = 0.0f;
+			position.y = yBounds.y;
+		}
+		else if (position.y + input.y <= yBounds.x)
+		{
+			input.y = 0.0f;
+			position.y = yBounds.x;
+		}
+		
+		CharacterBase::Move(input, deltaTime);
 	}
 
 	std::vector<Rectangle> Player::GetProjectileColliders() const
 	{
-		std::vector<Rectangle> rects = {};
+		std::vector<Rectangle> colliders = {};
 
 		if (!projectiles.empty())
 		{
 			for (const Weapons::Projectile* projectile : projectiles)
 			{
-				rects.push_back(projectile->GetCollider());
+				colliders.push_back(projectile->GetCollider());
 			}
 		}
 	
-		return rects;
+		return colliders;
 	}
 
 	void Player::RemoveProjectile(const int& projectileIndex)
@@ -98,12 +107,7 @@ namespace Character
 
 	void Player::SpawnProjectile()
 	{
-		Vector2 spawnPosition = Vector2{
-			position.x + static_cast<float>(texture.width) / 2.0f,
-			position.y + static_cast<float>(texture.height) / 2.0f,
-		};
-
-		projectiles.emplace(projectiles.begin(), new Weapons::Projectile(spawnPosition, this->projectileTexturePath));
+		projectiles.emplace(projectiles.begin(), new Weapons::Projectile(position, this->projectileTexturePath));
 		projectiles.front()->Load();
 	}
 

@@ -12,6 +12,9 @@ namespace Character
 		this->rotation = rotation;
 		this->color = color;
 		this->scale = scale;
+		
+		this->xBounds = Vector2{0.0f, static_cast<float>(GetScreenWidth())};
+		this->sourceRect = Rectangle{0.0f, 0.0f, 0.0f, 0.0f};
 	}
 
 	CharacterBase::~CharacterBase()
@@ -23,33 +26,54 @@ namespace Character
 
 	void CharacterBase::Draw() const
 	{
-		DrawTextureEx(texture, position, rotation, scale, color);
+		const Rectangle target =
+			Rectangle{position.x, position.y, sourceRect.width, sourceRect.height};
+		
+		DrawTexturePro(
+			texture,
+			sourceRect,
+			target,
+			Vector2{sourceRect.width / 2.0f, sourceRect.height / 2.0f},
+			rotation,
+			WHITE);
 	}
 
 	void CharacterBase::Load()
 	{
 		texture = LoadTexture(texturePath);
+		
+		sourceRect.width = static_cast<float>(texture.width);
+		sourceRect.height = static_cast<float>(texture.height);
+
+		xBounds.x += sourceRect.width / 2.0f;
+		xBounds.y -= sourceRect.width / 2.0f;
 	}
 
 	Rectangle CharacterBase::GetCollider() const
 	{
 		return Rectangle{
-			position.x,
-			position.y,
-			static_cast<float>(texture.width),
-			static_cast<float>(texture.height)};
+			position.x - sourceRect.width / 2.0f,
+			position.y - sourceRect.height / 2.0f,
+			sourceRect.width,
+			sourceRect.height};
 	}
 
 	Vector2 CharacterBase::GetPosition() const { return position; }
 
-	void CharacterBase::Move(const Vector2& moveInput, const float& deltaTime)
+	void CharacterBase::Move(Vector2 input, const float& deltaTime)
 	{
-		position.x += moveInput.x * deltaTime;
-		position.y += moveInput.y * deltaTime;
-	}
-
-	void CharacterBase::Rotate(const float& newRotation, const float& deltaTime)
-	{
-		rotation = newRotation;
+		if (position.x + input.x >= xBounds.y)
+		{
+			input.x = 0.0f;
+			position.x = xBounds.y;
+		}
+		else if (position.x + input.x <= xBounds.x)
+		{
+			input.x = 0.0f;
+			position.x = xBounds.x;
+		}
+		
+		position.x += input.x * moveSpeed * deltaTime;
+		position.y += input.y * moveSpeed * deltaTime;
 	}
 }

@@ -1,14 +1,18 @@
 #include "Animation/Animation.h"
 
+#include "Debug.h"
+
 namespace Animation
 {
-	Animation::Animation(const float& refreshRate, const float& xPos, const float& yPos, const std::vector<std::string> texturePaths, const Color& color)
+	Animation::Animation(const float& refreshRate, const Vector2& position, const std::vector<std::string>& texturePaths, const Color& color)
 	{
 		this->refreshRate = refreshRate;
 		this->textureIndex = 0;
-		this->position = Vector2{xPos, yPos};
+		this->position = position;
+		this->texture = Texture();
+		this->sourceRect = Rectangle{0.0f, 0.0f, 0.0f, 0.0f};
 
-		for (std::string texturePath : texturePaths)
+		for (const std::string& texturePath : texturePaths)
 		{
 			this->texturePaths.push_back(texturePath);
 		}
@@ -43,10 +47,24 @@ namespace Animation
 
 	void Animation::Draw() const
 	{
-		DrawTexture(texture, static_cast<int>(position.x), static_cast<int>(position.y), color);
+		const Rectangle destinationRect =
+			Rectangle{position.x, position.y, sourceRect.width, sourceRect.height};
+
+		const float rotation = 0.0f;
+		
+		DrawTexturePro(
+			texture,
+			sourceRect,
+			destinationRect,
+			Vector2{sourceRect.width / 2.0f, sourceRect.height / 2.0f},
+			rotation,
+			WHITE);
 	}
 
-	void Animation::Load() { UpdateCurrentTexture(); }
+	void Animation::Load()
+	{
+		UpdateCurrentTexture();
+	}
 
 	bool Animation::IsFinished() const { return isFinished; }
 
@@ -54,6 +72,10 @@ namespace Animation
 	{
 		texture = LoadTexture(texturePaths[textureIndex].c_str());
 		textureIndex++;
+
+		sourceRect.width = static_cast<float>(texture.width);
+		sourceRect.height = static_cast<float>(texture.height);
+		
 		if (textureIndex >= static_cast<int>(texturePaths.size())) { isFinished = true; }
 	}
 }

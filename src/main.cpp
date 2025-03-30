@@ -2,7 +2,7 @@
 
 int main ()
 {
-	Controller::GameController* gameController = new Controller::GameController();
+	Controller::GameController* gameController = new Controller::GameController(2);
 	gameController->LoadAssets();
 	float fixedDeltaTime = 0.0f;
 	const float updateDelay = 1.0f/60.0f;

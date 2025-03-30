@@ -17,7 +17,8 @@ namespace Weapons
 		this->clip = LoadSound(Strings::Audio::laser.c_str());
 		PlaySound(clip);
 
-		texture = Texture();
+		this->texture = Texture();
+		this->sourceRect = Rectangle{0.0f, 0.0f, 0.0f, 0.0f};
 	}
 
 	Projectile::~Projectile() { UnloadSound(clip); }
@@ -30,16 +31,24 @@ namespace Weapons
 
 	void Projectile::Draw() const
 	{
-		const Vector2 drawPosition = Vector2{
-			position.x - static_cast<float>(texture.width) / 2.0f,
-			position.y - static_cast<float>(texture.height) / 2.0f};
+		const Rectangle target =
+			Rectangle{position.x, position.y, sourceRect.width, sourceRect.height};
 		
-		DrawTextureEx(texture, drawPosition, rotation, scale, color);
+		DrawTexturePro(
+			texture,
+			sourceRect,
+			target,
+			Vector2{sourceRect.width / 2, sourceRect.height / 2},
+			rotation,
+			WHITE);
 	}
 
 	void Projectile::Load()
 	{
 		texture = LoadTexture(texturePath);
+
+		sourceRect.width = static_cast<float>(texture.width);
+		sourceRect.height = static_cast<float>(texture.height);
 	}
 
 	bool Projectile::IsDeleted() const
@@ -50,10 +59,10 @@ namespace Weapons
 	Rectangle Projectile::GetCollider() const
 	{
 		return Rectangle{
-			position.x,
-			position.y,
-			static_cast<float>(texture.width),
-			static_cast<float>(texture.height)};
+			position.x - sourceRect.width / 2.0f,
+			position.y - sourceRect.height / 2.0f,
+			sourceRect.width,
+			sourceRect.height};
 	}
 
 	void Projectile::Delete()

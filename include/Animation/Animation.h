@@ -10,7 +10,7 @@ namespace Animation
 	class Animation
 	{
 	public:
-		Animation(const float& refreshRate, const float& xPos, const float& yPos, const std::vector<std::string> texturePaths, const Color& color = WHITE);
+		Animation(const float& refreshRate, const Vector2& position, const std::vector<std::string>& texturePaths, const Color& color = WHITE);
 		~Animation();
 
 		void Update(const float& deltaTime);
@@ -28,6 +28,7 @@ namespace Animation
 		Vector2 position;
 		Color color;
 		bool isFinished;
+		Rectangle sourceRect;
 		
 		Texture texture;
 		std::vector<std::string> texturePaths;

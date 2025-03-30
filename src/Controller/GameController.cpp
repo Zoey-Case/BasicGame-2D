@@ -4,27 +4,24 @@
 
 namespace Controller
 {
-	GameController::GameController(const float& windowWidth, const float& windowHeight,  const int& frameRate)
+	GameController::GameController(const int& winningScore, const float& windowWidth, const float& windowHeight,  const int& frameRate)
 	{
 		this->windowWidth = windowWidth;
 		this->windowHeight = windowHeight;
-
 		this->frameRate = frameRate;
+		this->winningScore = winningScore;
+
+		InitializeRaylib();
+		
 		this->gameOver = false;
 		this->gameWon = false;
-		this->winningScore = 2;
 
 		this->clock = new Timers::Clock(Vector2{windowWidth / 2.0f, 10.0f});
-		this->player = new Character::Player(Vector2{windowWidth / 2.0f - 75.0f, windowHeight - 100.0f});
+		this->player = new Character::Player();
 		this->obstacleController = new ObstacleController();
 		this->scoreCard = new Stats::ScoreCard(static_cast<int>(windowWidth) - 150, 20);
 		this->musicPlayer = new Audio::MusicPlayer(Strings::Audio::music);
 		this->backgroundController = new BackgroundController(Vector2{windowWidth, windowHeight});
-	
-		SetConfigFlags(FLAG_WINDOW_HIGHDPI);
-		SetTargetFPS(frameRate);
-	
-		InitWindow(static_cast<int>(windowWidth), static_cast<int>(windowHeight), Strings::Utility::gameTitle);
 	}
 
 	GameController::~GameController()
@@ -74,6 +71,13 @@ namespace Controller
 		backgroundController->Load();
 		musicPlayer->Load();
 		player->Load();
+	}
+
+	void GameController::InitializeRaylib() const
+	{
+		SetConfigFlags(FLAG_WINDOW_HIGHDPI);
+		SetTargetFPS(frameRate);
+		InitWindow(static_cast<int>(windowWidth), static_cast<int>(windowHeight), Strings::Utility::gameTitle);
 	}
 
 	void GameController::CheckCollisions()
@@ -129,14 +133,14 @@ namespace Controller
 			DrawEndScreen(
 				"GAME WON!",
 				static_cast<int>(windowWidth / 2.0f - 50.0f),
-				static_cast<int>(windowHeight / 2));
+				static_cast<int>(windowHeight / 2.0f - 50.0f));
 			return;
 		}
 
 		DrawEndScreen(
 				"GAME OVER",
-				static_cast<int>(windowWidth / 2.0f - 50.0f),
-				static_cast<int>(windowHeight / 2));
+				static_cast<int>(windowWidth / 2.0f - 90.0f),
+				static_cast<int>(windowHeight / 2.0f - 50.0f));
 	}
 
 	void GameController::DrawEndScreen(const char* text, const int& textX, const int& textY)
@@ -148,8 +152,9 @@ namespace Controller
 	
 		DrawFPS(10, 10);
 		backgroundController->Draw();
-		DrawText(text, textX - 50, textY, 32, WHITE);
+		DrawText(text, textX - 45, textY, 32, WHITE);
 		DrawText(scoreText.c_str(), textX - 120, textY + 40, 24, WHITE);
+		DrawText(Strings::Utility::exitPrompt, textX - 90, textY + 100, 24, WHITE);
 
 		EndDrawing();
 	}

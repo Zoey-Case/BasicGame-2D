@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "raylib.h"
-#include "Timers/Timer.h"
 
 namespace Weapons
 {
@@ -30,5 +29,6 @@ namespace Weapons
 
 		const char* texturePath;
 		Texture texture;
+		Rectangle sourceRect;
 	};
 }

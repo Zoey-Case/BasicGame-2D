@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 #include <vector>
 
@@ -71,5 +72,7 @@ namespace Strings
 		
 		const inline char* windowHeight = "WINDOW HEIGHT: ";
 		const inline char* windowWidth = "WINDOW WIDTH: ";
+
+		const inline char* exitPrompt = "PRESS 'ESC' TO EXIT";
 	}
 }

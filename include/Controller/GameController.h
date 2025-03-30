@@ -12,7 +12,7 @@ namespace Controller
 	class GameController
 	{
 	public:
-		explicit GameController(const float& windowWidth = 1280, const float& windowHeight = 720, const int& frameRate = 60);
+		explicit GameController(const int& winningScore, const float& windowWidth = 1280, const float& windowHeight = 720, const int& frameRate = 60);
 		~GameController();
 
 		void Update(const float& deltaTime);
@@ -25,6 +25,7 @@ namespace Controller
 		void LoadAssets() const;
 
 	private:
+		void InitializeRaylib() const;
 		void CheckCollisions();
 		void DrawEndScreen(const char* text, const int& textX, const int& textY);
 		void CleanUpObjects();

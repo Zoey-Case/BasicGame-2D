@@ -19,7 +19,8 @@ namespace Character
 
 	void Obstacle::Update(const float &deltaTime)
 	{
-		Move(Vector2{0.0f, moveSpeed}, deltaTime);
+		Move(Vector2{0.0f, 1.0f}, deltaTime);
+		Rotate(rotationSpeed, deltaTime);
 	}
 	
 	void Obstacle::Load()
@@ -27,9 +28,14 @@ namespace Character
 		CharacterBase::Load();
 	}
 	
-	void Obstacle::Move(const Vector2 &moveInput, const float &deltaTime)
+	void Obstacle::Move(Vector2 input, const float &deltaTime)
 	{
-		CharacterBase::Move(Vector2{moveInput.x, moveInput.y}, deltaTime);
+		CharacterBase::Move(input, deltaTime);
+	}
+
+	void Obstacle::Rotate(const float& rotationAdd, const float& deltaTime)
+	{
+		rotation += rotationAdd * deltaTime;
 	}
 }
 

@@ -26,7 +26,7 @@ namespace Controller
 		void RemoveObstacle(const int& index);
 
 	private:
-		void SpawnExplosion(const float& xPos, const float& yPos);
+		void SpawnExplosion(const Vector2& position);
 		void DespawnExplosion(const int& index);
 		
 		void Cleanup();

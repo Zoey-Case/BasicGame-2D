@@ -1,5 +1,4 @@
 #include "Controller/ObstacleController.h"
-
 #include "Strings/StringLibrary.h"
 
 namespace Controller
@@ -104,19 +103,22 @@ namespace Controller
 
 	void ObstacleController::RemoveObstacle(const int& index)
 	{
-		const Vector2 obstaclePosition = obstacles[index]->GetPosition();
+		Vector2 position = obstacles[index]->GetPosition();
 		
 		obstacles[index]->Destroy();
 		delete obstacles[index];
 		obstacles.erase(obstacles.begin() + index);
 		numDestroyed++;
 
-		SpawnExplosion(obstaclePosition.x, obstaclePosition.y);
+		SpawnExplosion(position);
 	}
 
-	void ObstacleController::SpawnExplosion(const float& xPos, const float& yPos)
+	void ObstacleController::SpawnExplosion(const Vector2& position)
 	{
-		explosions.emplace(explosions.begin(), new Animation::Animation(1.0f/24.0f, xPos, yPos, Strings::Animation::explosion));
+		const std::vector<std::string>& texturePaths = Strings::Animation::explosion;
+		const float refreshRate = 1.0f / static_cast<float>(texturePaths.size());
+		
+		explosions.emplace(explosions.begin(), new Animation::Animation(refreshRate, position, texturePaths));
 		animationRunning = true;
 	}
 
