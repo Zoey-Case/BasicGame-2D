@@ -68,11 +68,16 @@ namespace Strings
 		const inline char* empty = "";
 		const inline char* newLine = "\n";
 
-		const inline char* gameTitle = "MY GAME";
+		const inline char* gameTitle = "2D SPACESHIP SHOOTER";
 		
 		const inline char* windowHeight = "WINDOW HEIGHT: ";
 		const inline char* windowWidth = "WINDOW WIDTH: ";
 
+		const inline char* moveControls = "MOVE: WASD / ARROW KEYS";
+		const inline char* fireControls = "FIRE: SPACEBAR";
+
 		const inline char* exitPrompt = "PRESS 'ESC' TO EXIT";
+		const inline char* startPrompt = "PRESS 'ENTER' TO START";
+		const inline char* restartPrompt = "PRESS 'ENTER' TO PLAY AGAIN";
 	}
 }

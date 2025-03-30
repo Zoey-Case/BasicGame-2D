@@ -17,17 +17,23 @@ namespace Controller
 
 		void Update(const float& deltaTime);
 		void FixedUpdate(const float& deltaTime);
+		void StartScreen();
 		void DrawGameScreen();
-		void DrawGameOver();
-	
-		bool CheckShouldClose() const;
+		void DrawGameOver(const float& deltaTime);
+
+		bool CheckAssetsLoaded() const;
+		bool CheckShouldStart() const;
+		bool CheckShouldClose();
 		bool IsGameOver() const;
-		void LoadAssets() const;
+		void TryReset();
+		void LoadAssets();
 
 	private:
 		void InitializeRaylib() const;
 		void CheckCollisions();
+		void DrawStartScreen(const char* text, const int& textX, const int& textY) const;
 		void DrawEndScreen(const char* text, const int& textX, const int& textY);
+		void InitializeObjects();
 		void CleanUpObjects();
 		void TryUpdateScore();
 	
@@ -41,8 +47,10 @@ namespace Controller
 		int frameRate;
 		float windowWidth;
 		float windowHeight;
+		bool assetsLoaded;
 		bool gameOver;
 		bool gameWon;
+		bool startGame;
 		int winningScore;
 	};
 }
