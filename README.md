@@ -4,7 +4,6 @@ A simple 2D Space Shooter game made entirely in C++, using the [Raylib](https://
 To build this application:
 1) Clone the project.
 2) Run the appropriate build script for your platform.
-- *MacOS only*: Before the application can run, you must first run Build.sh and then run the newly provided makefile. After this, run the appropriate build script.
 
 
 ## Raylib License
